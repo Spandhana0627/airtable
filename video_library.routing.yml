@@ -1,0 +1,17 @@
+video_library.hellomsg:
+  path: '/video_library'
+  defaults:
+    _controller: 'Drupal\video_library\Controller\VideoLibraryController::message'
+    _title: 'Video Library!'
+  requirements:
+    _permission: 'access content'
+
+video_library.videodata:
+  path: '/get-data'
+  defaults:
+    _controller: 'Drupal\video_library\Controller\APIController::getData'
+    _title: 'Video Data!'
+  requirements:
+    _permission: 'access content'         
+
+

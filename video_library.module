@@ -1,0 +1,42 @@
+<?php
+
+use Drupal\Core\Controller\ControllerBase;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Drupal\Component\Serialization\Json;
+use Drupal\node\Entity\Node;
+use Drupal\node\Entity\NodeType;
+
+
+function video_library_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id){
+        $client =\Drupal::httpClient();
+        $headers = ['Authorization' => 'Bearer patti0WJTJtiQnIWC.b8d1ee3da7ab5eda08e807c0a9dce15271bfef621d19451a3a84c1a3688ce4ce'];
+        // $headers = ['Content-Type' => 'application/json'];
+        $request = $client->get(
+            "https://api.airtable.com/v0/appYs8zO2euY9axdz/tbltm4cQAW0ZQ0jA9",['headers'=> $headers]
+        );
+        // $newRecordData = [
+        //     'fields' => [
+        //         'Name' => 'Coffee packaging',
+        //         'Client' => [
+        //             'recnXZRUu8QwT16uB'
+        //         ],
+        //         'Category' => 'Brand identity',
+        //         'Due Date' => '2020-10-30',
+        //         'Kickoff Date' => '2020-10-16',
+        //         'Tasks' => [
+        //             'recFHk623ZfkFQ0BR'
+        //         ]
+        //     ]
+        // ]
+        $response = json_decode($request->getBody());
+        // $response = $response->records;
+        // foreach($response as $value){
+        //    $array[] = json_decode(json_encode($value),true);
+        // }
+        // kint($array);
+        // foreach($array as $data){
+        //     $id[] = $data['id'];
+        //     $genre[] = $data['fields']['Genre'];
+        // }
+        return new JsonResponse($response);
+        }

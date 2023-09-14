@@ -1,0 +1,5 @@
+name: Video Library
+description: Video Library content type created programatically
+core_version_requirement: ^8 || ^9
+type: module
+package: Custom
