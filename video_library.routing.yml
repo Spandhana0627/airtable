@@ -14,4 +14,17 @@ video_library.videodata:
   requirements:
     _permission: 'access content'         
 
+video_library.fetch_data:
+
+  path: '/fetch-data-from-airtable'
+
+  defaults:
+
+    _controller: '\Drupal\video_library\Controller\CustomAirtableController::fetchDataFromAirtable'
+
+    _title: 'Fetch Data from Airtable'
+
+  requirements:
+
+    _permission: 'access content'
 
