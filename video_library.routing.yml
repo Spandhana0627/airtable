@@ -6,13 +6,13 @@ video_library.hellomsg:
   requirements:
     _permission: 'access content'
 
-video_library.videodata:
-  path: '/get-data'
-  defaults:
-    _controller: 'Drupal\video_library\Controller\APIController::getData'
-    _title: 'Video Data!'
-  requirements:
-    _permission: 'access content'         
+# video_library.videodata:
+#   path: '/get-data'
+#   defaults:
+#     _controller: 'Drupal\video_library\Controller\APIController::getData'
+#     _title: 'Video Data!'
+#   requirements:
+#     _permission: 'access content'         
 
 video_library.fetch_data:
 
@@ -26,5 +26,13 @@ video_library.fetch_data:
 
   requirements:
 
+    _permission: 'access content'
+
+video_library.castsdata:
+  path: '/get-datas'
+  defaults:
+    _controller: 'Drupal\video_library\Controller\CastsController::getDatas'
+    _title: 'Casts Data!'
+  requirements:
     _permission: 'access content'
 

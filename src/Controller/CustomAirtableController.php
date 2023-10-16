@@ -51,9 +51,10 @@ class CustomAirtableController extends ControllerBase {
         // kint($data->records); exit;
 
       foreach ($data->records as $record) {
-        $input_date = $record->createdTime;
-        $time = strtotime($input_date);
-        $test_time = strtotime('03/10/2022 - 12:18');
+        // $casts_entity_id = $this->getCastsId($record->fields->Casts);
+        // $input_date = $record->createdTime;
+        // $time = strtotime($input_date);
+        // $test_time = strtotime('03/10/2022 - 12:18');
         // $date = new DrupalDateTime($input_date);
         // kint($date);
         // $test = $date->createFromFormat($date);
@@ -62,7 +63,7 @@ class CustomAirtableController extends ControllerBase {
         // $new_date = date_format($input_date,'long');
         // kint($new_date);
 
-        $formatted_date = \Drupal::service('date.formatter')->format($time,'short');
+        // $formatted_date = \Drupal::service('date.formatter')->format($time,'short');
 
         // kint($formatted_date);
        
@@ -82,9 +83,9 @@ class CustomAirtableController extends ControllerBase {
           'field_id' => $record->id ?? '',
           'field_language' => $record->fields->Language ?? '',
           'field_genre' => $record->fields->Genre ?? '',
-          'field_casts' => $record->fields->Casts ?? '',
+          'field_casts1' => $casts_entity_id ?? '',
           'field_length' => $record->fields->Length ?? '',
-          'field_createdtime' =>$test_time,
+        //   'field_createdtime' =>$test_time,
 
         
 
@@ -100,7 +101,16 @@ class CustomAirtableController extends ControllerBase {
 
   }
 
- 
+  /**
+   * 
+   */
+//  private function getCastsId ($Casts_name) {
+//   $connection = Database::Connection();
+//   $query = EntityQuery();
+//   $this->$EntityQuery();
+//   $EntityQuery("SELECT * FROM Casts WHERE FirstName LIKE olaf"); //Casts table like query 
+  
+
+//  }
 
 }
-
