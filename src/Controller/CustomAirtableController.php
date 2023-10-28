@@ -9,6 +9,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use GuzzleHttp\ClientInterface;
 use Drupal\node\Entity\Node;
 use Drupal\Core\DateTime\DrupalDateTime;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 
  
 
@@ -45,35 +46,23 @@ class CustomAirtableController extends ControllerBase {
     ]);
     $data = json_decode($response->getBody());
 
+    $nids = \Drupal::entityQuery('node')->condition('type','casts')->execute();
+    $nodes = Node::loadMultiple($nids);
+    foreach($nodes as $node){
+      $first_name[] = $node->get('field_first_name')->value;
+    }
+
  
 
     if (!empty($data->records)) {
-        // kint($data->records); exit;
 
       foreach ($data->records as $record) {
-        // $casts_entity_id = $this->getCastsId($record->fields->Casts);
-        // $input_date = $record->createdTime;
-        // $time = strtotime($input_date);
-        // $test_time = strtotime('03/10/2022 - 12:18');
-        // $date = new DrupalDateTime($input_date);
-        // kint($date);
-        // $test = $date->createFromFormat($date);
-        // kint($test);
+        $record_first_name = $record->fields->Casts;
+        if(in_array($record_first_name,$first_names)){
+          $id = \Drupal::entityQuery('node')->condition('type','casts')->condition('field_first_name',$record_first_name)->execute();
 
-        // $new_date = date_format($input_date,'long');
-        // kint($new_date);
-
-        // $formatted_date = \Drupal::service('date.formatter')->format($time,'short');
-
-        // kint($formatted_date);
-       
-       // var_dump($record); exit;
-       /* if (!isset($record)) {
-            echo "data is blank";
-            exit;
-            return;
-        }*/
-        // Map the API fields to your content type fields.
+        }
+     
 
         $node = Node::create([
 
@@ -83,7 +72,7 @@ class CustomAirtableController extends ControllerBase {
           'field_id' => $record->id ?? '',
           'field_language' => $record->fields->Language ?? '',
           'field_genre' => $record->fields->Genre ?? '',
-          'field_casts1' => $casts_entity_id ?? '',
+          'field_casts' => $id ?? '',
           'field_length' => $record->fields->Length ?? '',
         //   'field_createdtime' =>$test_time,
 

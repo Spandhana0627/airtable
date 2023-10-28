@@ -20,12 +20,16 @@ class CastsController extends ControllerBase {
 
         if (!empty($response->records)) {
             foreach ($response->records as $record) {
+                $firstName = $record->fields->First_Name;
+                $lastName = $record->fields->Last_Name;
                 $node = Node::create([
                     'type' => 'casts', // Replace with your content type machine name.
 
-                    'title' => $record->fields->First_Name ?? '',
+                    'title' => $firstName .''. $lastName,
                     'field_id1' => $record->fields->id ?? '',
                     // 'field_last' => $record->fields->LastName ?? '',
+                    'field_first_name' => $firstName,
+                    'field_last_name' => $lastName,
                     'field_description' => $record->fields->description ?? '',
 
                 ]);
